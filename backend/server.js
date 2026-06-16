@@ -74,11 +74,26 @@ app.use('/api/logs', logRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/ai', aiRoutes);
 
-// ── Health check (no sensitive info) ─────────────────────
-app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+// ── Root Route ────────────────────────────────────────────
+app.get('/', (_req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'My Healthy Partner API',
+    version: '1.0.0',
+  });
+});
 
-// ── 404 ───────────────────────────────────────────────────
-app.use((_req, res) => res.status(404).json({ message: 'Route not found' }));
+// ── Health Check ──────────────────────────────────────────
+app.get('/health', (_req, res) => {
+  res.json({ status: 'ok' });
+});
+
+// ── 404 Handler ───────────────────────────────────────────
+app.use((_req, res) => {
+  res.status(404).json({
+    message: 'Route not found',
+  });
+});
 
 // ── Global error handler ──────────────────────────────────
 app.use((err, _req, res, _next) => {
