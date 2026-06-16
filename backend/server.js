@@ -27,12 +27,20 @@ const app = express();
 app.use(helmet());
 
 // ── CORS ─────────────────────────────────────────────────
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173').split(',');
+const allowedOrigins = (
+  process.env.ALLOWED_ORIGINS ||
+  'http://localhost:5173'
+)
+  .split(',')
+  .map(origin => origin.trim());
 app.use(
   cors({
     origin: (origin, cb) => {
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      cb(new Error('Not allowed by CORS'));
+      if (!origin || allowedOrigins.includes(origin)) {
+        return cb(null, true);
+      }
+
+      return cb(new Error('Not allowed by CORS'));
     },
     credentials: true,
   })
