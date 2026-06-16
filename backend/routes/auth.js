@@ -41,9 +41,14 @@ router.post('/login', async (req, res) => {
 
     const token = signToken(user._id);
     res.json({ token, user: { _id: user._id, name: user.name, email: user.email } });
-  } catch {
-    res.status(500).json({ message: 'Server error' });
-  }
+  } catch (err) {
+  console.error('REGISTER ERROR:', err);
+
+  res.status(500).json({
+    message: err.message,
+    stack: process.env.NODE_ENV !== 'production' ? err.stack : undefined,
+  });
+}
 });
 
 // GET /api/auth/me  (protected)
@@ -65,9 +70,14 @@ router.put('/change-password', protect, async (req, res) => {
     user.password = newPassword;
     await user.save();
     res.json({ message: 'Password updated successfully' });
-  } catch {
-    res.status(500).json({ message: 'Server error' });
-  }
+  } catch (err) {
+  console.error('REGISTER ERROR:', err);
+
+  res.status(500).json({
+    message: err.message,
+    stack: process.env.NODE_ENV !== 'production' ? err.stack : undefined,
+  });
+}
 });
 
 // DELETE /api/auth/delete  (protected)
@@ -75,9 +85,14 @@ router.delete('/delete', protect, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.user._id);
     res.json({ message: 'Account deleted' });
-  } catch {
-    res.status(500).json({ message: 'Server error' });
-  }
+  } catch (err) {
+  console.error('REGISTER ERROR:', err);
+
+  res.status(500).json({
+    message: err.message,
+    stack: process.env.NODE_ENV !== 'production' ? err.stack : undefined,
+  });
+}
 });
 
 export default router;
