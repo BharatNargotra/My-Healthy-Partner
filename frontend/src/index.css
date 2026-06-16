@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --lime:     #a3e635;
+  --lime-d:   #65a30d;
+  --lime-dim: rgba(163,230,53,0.12);
+  --bg:       #0a0a0a;
+  --surface:  #111111;
+  --surface2: #1a1a1a;
+  --border:   #1f1f1f;
+  --border2:  #2a2a2a;
+  --muted:    #555555;
+  --text:     #f0f0f0;
+  --radius:   12px;
+  --radius-lg:16px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: var(--surface); }
+::-webkit-scrollbar-thumb  { background: #333; border-radius: 3px; }
+
+/* ── Cards ──────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+/* ── Inputs ─────────────────────────────────────────── */
+.input-field {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text);
+  padding: 10px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.input-field:focus { border-color: var(--lime); }
+.input-field::placeholder { color: var(--muted); }
+select.input-field option { background: #1a1a1a; }
+
+/* ── Buttons ────────────────────────────────────────── */
+.btn-primary {
+  background: var(--lime);
+  color: #0a0a0a;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding: 11px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary:hover    { background: #bef264; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(163,230,53,.25); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--lime);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--lime);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.btn-secondary:hover { background: var(--lime-dim); }
+
+.btn-ghost {
+  background: var(--surface2);
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.btn-ghost:hover { background: #222; color: var(--text); }
+
+/* ── Labels ─────────────────────────────────────────── */
+.label {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ── Stat cards ─────────────────────────────────────── */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+/* ── AI badge ───────────────────────────────────────── */
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(139,92,246,.15);
+  border: 1px solid rgba(139,92,246,.3);
+  color: #a78bfa;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* ── Animations ─────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn .35s ease both; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(163,230,53,.3);
+  border-top-color: var(--lime);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  display: inline-block;
+}
+
+/* ── Progress bar ───────────────────────────────────── */
+.progress-bar-track {
+  height: 6px;
+  background: var(--border2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width .5s ease;
+}
+
+/* ── Tooltip override for recharts ─────────────────── */
+.recharts-tooltip-wrapper { outline: none; }
