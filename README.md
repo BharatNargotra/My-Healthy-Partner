@@ -97,3 +97,4 @@ health-partner/
         ├── pages/        ← Login, Register, Profile, DailyLog, Progress
         └── services/api.js
 ```
+
