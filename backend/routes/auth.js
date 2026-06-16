@@ -52,8 +52,22 @@ router.post('/login', async (req, res) => {
 
     // select: false on password field — must explicitly select it
     const user = await User.findOne({ email }).select('+password');
-    if (!user || !(await user.matchPassword(password)))
-      return res.status(401).json({ message: 'Invalid email or password' });
+
+    console.log("LOGIN EMAIL:", email);
+    console.log("USER FOUND:", user ? user.email : "NO USER");
+    console.log("STORED PASSWORD:", user ? user.password : "NO PASSWORD");
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    const isMatch = await user.matchPassword(password);
+
+    console.log("PASSWORD MATCH:", isMatch);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Password incorrect" });
+    }
 
     const token = signToken(user._id);
     res.json({ token, user: { _id: user._id, name: user.name, email: user.email } });
