@@ -45,7 +45,7 @@ export default function DailyLog() {
       const { data } = await api.get('/logs/today');
       setLog(data);
       setVitals({ waterIntake: data.waterIntake || 0, weight: data.weight || '', mood: data.mood || 'good', sleep: data.sleep || '', notes: data.notes || '' });
-    } catch { toast.error('Failed to load today's log'); }
+    } catch { toast.error('Failed to load today\'s log'); }
     finally { setLoading(false); }
   }, []);
 
