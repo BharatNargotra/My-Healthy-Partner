@@ -99,9 +99,11 @@ app.use((_req, res) => {
 
 // ── Global error handler ──────────────────────────────────
 app.use((err, _req, res, _next) => {
-  console.error(err.stack);
+  console.error('GLOBAL ERROR:', err);
+
   res.status(err.status || 500).json({
-    message: process.env.NODE_ENV === 'production' ? 'Internal server error' : err.message,
+    message: err.message,
+    stack: err.stack,
   });
 });
 
