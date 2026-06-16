@@ -26,11 +26,19 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// ── Hash password before save (FIXED) ────────────────────
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
-  next();
+userSchema.pre('save', function (next) {
+  const user = this;
+
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  bcrypt.hash(user.password, 12)
+    .then(hash => {
+      user.password = hash;
+      next();
+    })
+    .catch(err => next(err));
 });
 
 // ── Compare entered password ──────────────────────────────
