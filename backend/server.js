@@ -24,7 +24,7 @@ connectDB();
 const app = express();
 
 // Trust proxy (Render, Heroku, etc.)
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 // ── Security headers ──────────────────────────────────────
 app.use(helmet());
 
